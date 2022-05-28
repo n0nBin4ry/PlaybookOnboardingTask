@@ -1,8 +1,6 @@
 using UnityEngine;
 
 public class ARotatorModifier : AModifier {
-    public string DEBUG_DIR;
-
     private Plane _plane;
 
     protected override void SetClickOn(Vector3 clickPos) {
@@ -16,14 +14,10 @@ public class ARotatorModifier : AModifier {
         if (_plane.Raycast(ray, out dist)) {
             _startPos = ray.GetPoint(dist);
             _isClicked = true;
-            //Debug.Log("Starting rotation of " + DEBUG_DIR);
         }
     }
 
     protected override void TickClickHeld(Vector3 clickPos) {
-        // update plane before raycast
-        //_plane = new Plane(transform.up, transform.parent.position);
-        
         // project mouse click onto the plane we rotate on to get the end position of our change vec
         var ray = _cam.ScreenPointToRay(clickPos);
         float dist;
@@ -43,34 +37,4 @@ public class ARotatorModifier : AModifier {
             _startPos = projClickPos;
         }
     }
-
-    // private void CreateWireMesh() {
-    //     var line = gameObject.AddComponent<LineRenderer>();
-    //     // create circle
-    //     var segments = 360;
-    //     float lineWidth = .1f;
-    //     float radius = .5f;
-    //     line.useWorldSpace = false;
-    //     line.startWidth = lineWidth;
-    //     line.endWidth = lineWidth;
-    //     line.positionCount = segments + 1;
-    //
-    //     var pointCount = segments + 1; // add extra point to make startpoint and endpoint the same to close the circle
-    //     var points = new Vector3[pointCount];
-    //
-    //     for (int i = 0; i < pointCount; i++)
-    //     {
-    //         var rad = Mathf.Deg2Rad * (i * 360f / segments);
-    //         points[i] = new Vector3(Mathf.Sin(rad) * radius, 0, Mathf.Cos(rad) * radius);
-    //     }
-    //
-    //     line.SetPositions(points);
-    //     
-    //     // create a mesh out of the circle
-    //     var newMesh = new Mesh();
-    //     line.BakeMesh(newMesh, false);
-    //     gameObject.GetComponent<MeshFilter>().mesh = newMesh;
-    //     
-    //     Destroy(line);
-    // }
 }

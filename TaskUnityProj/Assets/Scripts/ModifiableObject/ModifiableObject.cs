@@ -21,11 +21,12 @@ public class ModifiableObject : MonoBehaviour {
         if (_isSelected || !_selectionManager) return;
         _selectionManager.SelectObject(this);
     }
-
+    
     public void Select() {
         if (_isSelected) return;
         _isSelected = true;
         
+        // when selected, we no longer need our colliders to click ourselves; this also allows us to click objects behind
         _subjectCollider.enabled = false;
         _modifiers.gameObject.SetActive(true);
     }
@@ -34,6 +35,7 @@ public class ModifiableObject : MonoBehaviour {
         if (!_isSelected) return;
         _isSelected = false;
         
+        // when deselected, we don't need our modifying gimbal controls to clutter up the screen; also need to be clickable again 
         _subjectCollider.enabled = true;
         _modifiers.gameObject.SetActive(false);
     }

@@ -1,10 +1,15 @@
-using System;
 using UnityEngine;
 
-public abstract class AModifier : MonoBehaviour {
+/* Modifiers are in charge of manipulating their given "subjects." 
+ * They are all interacted with by clicking and dragging, with different behaviors per derived class to match
+ * gimbal controls.
+ */
 
+public abstract class AModifier : MonoBehaviour {
+    // the transform of the subject we will be modifying
     public Transform SubjectTransform;
     
+    // change material on interaction to give user feedback
     [SerializeField] Material _unclickedMat;
     [SerializeField] Material _clickedMat;
     protected MeshRenderer _rend;
@@ -47,12 +52,14 @@ public abstract class AModifier : MonoBehaviour {
     public void OnMouseDown() {
         SetClickOn(Input.mousePosition);
     }
-
+    
+    // modifiers will "light-up" when hovered over and/or clicked
     private void OnMouseEnter() {
         if (!Input.GetMouseButton(0))
             _rend.material = _clickedMat;
     }
 
+    // and "dim" when not hovered over
     private void OnMouseExit() {
         if (!_isClicked) {
             _rend.material = _unclickedMat;

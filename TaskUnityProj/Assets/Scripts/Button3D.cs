@@ -6,9 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class Button3D : MonoBehaviour {
+    // texture of a quad used as a user-facing display of the button
     [SerializeField] private Renderer _textureRend;
+    // change material on interaction to give user feedback
     [SerializeField] private Material _clickedMaterial;
     [SerializeField] private Material _unclickedMaterial;
+    // distance the button will be pressed into the screen, for user feedback as well
     [SerializeField] private float _clickDist = .5f;
     private Renderer _rend;
     
@@ -17,7 +20,6 @@ public class Button3D : MonoBehaviour {
     public UnityEvent ButtonEnteredInteraction;
     public UnityEvent BUttonExitedInteraction;
     
-    // Start is called before the first frame update
     void Start() {
         _rend = gameObject.GetComponent<Renderer>();
     }
@@ -28,6 +30,7 @@ public class Button3D : MonoBehaviour {
     }
 
     private void OnMouseDown() {
+        // click visual-feedback before triggering events
         if (_textureRend)
             _textureRend.enabled = false;
         transform.Translate(transform.forward * _clickDist);
@@ -37,6 +40,7 @@ public class Button3D : MonoBehaviour {
     }
 
     private void OnMouseUp() {
+        // click visual-feedback before triggering events
         if (_textureRend)
             _textureRend.enabled = true;
         transform.Translate(transform.forward * -_clickDist);

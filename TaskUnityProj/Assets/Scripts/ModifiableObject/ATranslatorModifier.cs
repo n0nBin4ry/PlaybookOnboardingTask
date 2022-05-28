@@ -1,8 +1,6 @@
 using UnityEngine;
 
 public class ATranslatorModifier : AModifier {
-    public string DEBUG_DIR;
-
     private Plane _plane;
 
     protected override void SetClickOn(Vector3 clickPos) {
@@ -15,7 +13,6 @@ public class ATranslatorModifier : AModifier {
         if (_plane.Raycast(ray, out dist)) {
             _startPos = ray.GetPoint(dist);
             _isClicked = true;
-            //Debug.Log("Starting  of " + DEBUG_DIR);
         }
     }
 
